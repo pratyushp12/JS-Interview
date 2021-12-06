@@ -1,0 +1,25 @@
+const test=[1,2,3,[[4,5],6,7],[[[[NaN],undefined]]]];
+
+const res=[].concat(...test);
+
+console.log(test);  //[ 1, 2, 3, [ [ 4, 5 ], 6, 7 ], [ [ [Array] ] ] ]
+
+console.log(res);  // [ 1, 2, 3, [ 4, 5 ], 6, 7, [ [ [Array], undefined ] ] ]
+
+console.log(test.flat()) // [ 1, 2, 3, [ 4, 5 ], 6, 7, [ [ [Array], undefined ] ] ]
+
+console.log(test.flat(4));  //[ 1, 2, 3, 4, 5, 6, 7, NaN, undefined ]
+
+const FlatArray=(arr)=>{
+    let FlattenArr=[];
+    if(!Array.isArray(arr))
+    return arr;
+    else{
+        for(let item of arr){
+           FlattenArr=FlattenArr.concat(FlatArray(item));
+        }
+    }
+    return FlattenArr;
+}
+
+console.log(FlatArray(test));  //[ 1, 2, 3, 4, 5, 6, 7, NaN, undefined ]
