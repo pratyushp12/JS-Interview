@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Fjalla+One&family=Merienda:wght@700&family=Open+Sans:wght@300&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: #34495e;
+  color: whitesmoke;
+}
+
+h1 {
+  text-align: center;
+  margin: 2rem 0;
+  font-size: 2.6rem;
+}
+
+.accordion {
+  margin: 1rem;
+}
+
+.accordion-item {
+  background-color: #fff;
+  color: black;
+  font-size: 1.1rem;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+}
+
+.accordion-item-header {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 1rem;
+  line-height: 1rem;
+  cursor: pointer;
+}
+
+.accordion-item-header::after {
+  content: "+";
+  position: absolute;
+  font-size: 2rem;
+  right: 1rem;
+}
+
+.accordion-item-header.active::after {
+  content: "-";
+}
+
+.accordion-item-body {
+  display: none;
+  color: black;
+  line-height: 1.5rem;
+  border-top: 3px solid;
+  border-image: linear-gradient(to right, #34495e, lightyellow) 1;
+}
+
+.accordion-item-header.active + .accordion-item-body {
+  display: block;
+}
