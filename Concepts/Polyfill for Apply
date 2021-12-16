@@ -1,1 +1,32 @@
+const obj={
+    name:"pratyush",
+    city:"Mumbai"
+}
 
+function getDetails(a,b){
+    console.log(`Name is ${this.name} and I am from ${this.city} age: ${a} ${b}`);
+}
+
+getDetails();  //Name is undefined and I am from undefined age: undefined undefined
+
+getDetails.apply(obj,[2,5]);  // Name is pratyush and I am from Mumbai age: 2 5
+
+Function.prototype.myapply=function(scope, args){
+    scope.func=this;
+    return scope.func(...args);
+}
+
+getDetails.myapply(obj,[2,5]); // Name is pratyush and I am from Mumbai age: 2 5
+
+
+Function.prototype.myApply = function(context, args) {
+    if (!Array.isArray(args)) {
+      console.error('Arguments is not a array object');
+      return;
+    }
+    const newFunc = Object.create(context || null);
+    newFunc.fn = this;
+    newFunc.fn(...args);
+  }
+
+  getDetails.myApply(obj,[2,5]);  //Name is pratyush and I am from Mumbai age: 2 5
