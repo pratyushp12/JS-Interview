@@ -1,1 +1,37 @@
+const obj={
+    name:"pratyush",
+    city:"Mumbai"
+}
 
+function getDetails(){
+    console.log(`Name is ${this.name} and I am from ${this.city}`);
+}
+
+getDetails();  //Name is undefined and I am from undefined
+
+getDetails.call(obj);  // Name is pratyush and I am from Mumbai
+
+Function.prototype.mycall=function(scope, ...args){
+    scope.func=this;
+    return scope.func(...args);
+}
+
+getDetails.mycall(obj);   //Name is pratyush and I am from Mumbai
+
+//-------------------------------
+
+/* 
+This call function polyfill utilizes the concept of “this points to the variable on the left side of dot operator”.
+Object.create is used because I do not want to create a new property every time when myCall function is executed. 
+By this way, it links the passed in context to __proto__ of the newly created object, so it helps to save time and 
+space.
+*/ 
+
+
+Function.prototype.myCall = function(context, ...args) {
+    const newFunc = Object.create(context || null);
+    newFunc.fn = this;
+    newFunc.fn(...args);
+  }
+
+getDetails.myCall(obj);  //Name is pratyush and I am from Mumbai
