@@ -1,1 +1,28 @@
+//Event Delegation - A way You can have an event Listerner for multiple elements with support for dding extra children
+
+
+
+/*index.html
+<ul id="List">
+<li>Apple</li>
+<li>Banana</li>
+<li>Guava</li>
+</ul>
+
+*/
+
+let myList = document.getElementById('List');
+myList.addEventListener('click',(e)=>{
+    let target=e.target;
+    if(target.matches('li')){
+    //doSomething
+        target.style.backgroundColor='pink';
+    }
+})
+
+//Adding new element - works same for this element as well
+
+const item=document.createElement('li');
+item.textContent="Orange";
+myList.appendChild(item);
 
