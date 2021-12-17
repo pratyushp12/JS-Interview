@@ -1,1 +1,14 @@
+let arr=[2,4,6,8,10];
 
+let res=arr.map(x=>x*2);
+console.log(res); //[ 4, 8, 12, 16, 20 ]
+
+Array.prototype.myMap=function(callback){
+    let resArray=[]; // since, we need to return an array
+    for(let i=0;i<this.length;i++)
+    resArray.push(callback(this[i],i,this)) // pushing currentValue, index, array
+    return resArray; // finally returning the array
+}
+
+let res2=arr.myMap(x=>x*6);
+console.log(res2); //[ 12, 24, 36, 48, 60 ]
