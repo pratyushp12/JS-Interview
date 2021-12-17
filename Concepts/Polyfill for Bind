@@ -1,1 +1,21 @@
+const obj={
+    name:"pratyush",
+    city:"Mumbai"
+}
 
+function getDetails(){
+    console.log(`Name is ${this.name} and I am from ${this.city}`);
+}
+
+const bindExecutor = getDetails.bind(obj);
+bindExecutor();  //Name is pratyush and I am from Mumbai
+
+Function.prototype.mybind = function(scope, ...args){
+    const fn=this;
+    return function(...args2){
+        fn.apply(scope,[...args,...args2]);
+    }
+}
+
+const bindpoly=getDetails.mybind(obj);
+bindpoly();  //Name is pratyush and I am from Mumbai
