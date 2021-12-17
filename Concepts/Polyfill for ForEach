@@ -1,1 +1,12 @@
+let arr=[2,4,6,8,10];
+
+arr.forEach(ele=>console.log(ele)); //2 , 4 , 6 , 8 , 10
+
+Array.prototype.myForeach=function(callback){
+    for(let i=0;i<this.length;i++)
+    callback(this[i],i,this);  // currentValue, index, array
+}
+
+arr.myForeach(ele=>console.log(ele)); //2, 4, 6, 8, 10
+
 
