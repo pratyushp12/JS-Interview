@@ -1,1 +1,16 @@
+let arr=[2,4,6,8,10];
 
+const res=arr.filter(x=>x>6);
+console.log(res);
+
+Array.prototype.myFilter=function(callback){
+    let resArray=[];
+    for(let i=0;i<this.length;i++){
+    if(callback(this[i],i,this))
+    resArray.push(this[i]);
+    }
+    return resArray;
+}
+
+const res2=arr.myFilter(x=>x>5);
+console.log(res2);
