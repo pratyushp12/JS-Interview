@@ -1,1 +1,35 @@
+const arr=[2,4,6,8,10];
 
+let res=arr.reduce((acc,curr)=>{
+    return acc+curr;
+},); 
+
+console.log(res); //30
+
+Array.prototype.myReduce=function(callback,initialValue){
+    for(let i=0;i<this.length;i++)
+     initialValue = callback(initialValue,this[i],i,this);
+     return initialValue;
+}
+
+const res2=arr.myReduce((acc,curr)=>acc+curr,);
+console.log(res2); //undefined
+
+
+//2nd method - handles when acc is undefined
+
+Array.prototype.reduceAlbums = function(callback, initialValue) {
+    var accumulator = initialValue === undefined ? undefined : initialValue
+  
+    for (var i = 0; i < this.length; i++) {
+      if (accumulator !== undefined) {
+        accumulator = callback.call(undefined, accumulator, this[i], i, this)
+      } else {
+        accumulator = this[i]
+      }
+    }
+    return accumulator
+  } 
+
+const res3=arr.reduceAlbums((acc,curr)=>acc+curr,);
+console.log(res3); //30
