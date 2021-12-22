@@ -1,3 +1,5 @@
+/*Polyfill for Snchronous Promise with only resolve as params
+
 
 class MyPromise{
     resolvedData; //public fields
@@ -19,5 +21,39 @@ class MyPromise{
 new MyPromise((resolve)=>{
     resolve(100);
    // setTimeout(()=>{resolve(10);},1000)
+    
+}).then(res=>console.log(res));
+
+*/
+
+
+/* Promise with Async Promise with resolve as only param */
+
+
+class MyPromise{
+    resolvedData; //public fields
+    isResolved=false;
+    thenFunc;
+    constructor(executor){
+
+        const resolve=(value)=>{
+            this.resolvedData=value;
+            this.isResolved=true;
+            if(typeof this.thenFunc=== 'function') //this is to avoid undefined value of thenFunc when Promise is synchronous
+            this.thenFunc(this.resolvedData);
+        }
+
+        executor(resolve);
+    }
+    then(fn){
+        this.thenFunc=fn  //stores the context because if we don't store then we cannot call this on line 12
+        if(this.isResolved)
+        this.thenFunc(this.resolvedData);
+    }
+}
+
+new MyPromise((resolve)=>{
+    // resolve(100);
+    setTimeout(()=>{resolve(10);},1000)
     
 }).then(res=>console.log(res));
