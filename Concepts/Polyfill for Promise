@@ -1,1 +1,23 @@
 
+class MyPromise{
+    resolvedData; //public fields
+    isResolved=false;
+    constructor(executor){
+
+        const resolve=(value)=>{
+            this.resolvedData=value;
+            this.isResolved=true;
+        }
+
+        executor(resolve);
+    }
+    then(fn){
+        fn(this.resolvedData);
+    }
+}
+
+new MyPromise((resolve)=>{
+    resolve(100);
+   // setTimeout(()=>{resolve(10);},1000)
+    
+}).then(res=>console.log(res));
