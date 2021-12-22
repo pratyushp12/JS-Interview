@@ -26,8 +26,9 @@ new MyPromise((resolve)=>{
 
 */
 
+//----------------------------------------------------------
 
-/* Promise with Async Promise with resolve as only param */
+/* Promise with Async Promise with resolve as only param 
 
 
 class MyPromise{
@@ -57,3 +58,40 @@ new MyPromise((resolve)=>{
     setTimeout(()=>{resolve(10);},1000)
     
 }).then(res=>console.log(res));
+
+*/
+
+//-------------------------------------------------------------------------------------
+
+/* Promise with then chaining and sync and async operation*/
+
+
+class MyPromise{
+    resolvedData; //public fields
+    isResolved=false;
+    resolvedChain=[];
+    constructor(executor){
+
+        const resolve=(value)=>{
+            this.resolvedData=value;
+            this.isResolved=true;
+            if(this.resolvedChain.length)
+            this.resolvedChain.reduce((acc,fn)=>fn(acc),this.resolvedData);
+        }
+
+        executor(resolve);
+    }
+    then(fn){
+        this.resolvedChain.push(fn); 
+        if(this.isResolved)
+        this.resolvedChain.reduce((acc,fn)=>fn(acc),this.resolvedData);
+        return this;
+    }
+    
+}
+
+new MyPromise((resolve)=>{
+     //resolve(100);
+    setTimeout(()=>{resolve(10);},1000)
+    
+}).then(res=>res*5).then(res=>console.log(res));
