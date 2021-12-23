@@ -1,1 +1,26 @@
+/*function curry(fn){
+    return function(a){
+        return function(b){
+           return fn(a,b);
+        }
+    }
+}
+*/
 
+//Polyfill
+function curry(fn){
+    return function inner(...args){
+        if(args.length>=fn.length)
+        return fn(...args);
+        return (...args2)=>inner(...args,...args2);
+    }
+}
+
+function sum(x,y){
+return x+y;
+}
+
+const curried=curry(sum);
+
+const res=curried(2)(3);
+console.log(res);
