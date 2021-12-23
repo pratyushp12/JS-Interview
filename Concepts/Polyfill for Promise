@@ -63,7 +63,7 @@ new MyPromise((resolve)=>{
 
 //-------------------------------------------------------------------------------------
 
-/* Promise with then chaining and sync and async operation*/
+/* Promise with then chaining and sync and async operation
 
 
 class MyPromise{
@@ -95,3 +95,60 @@ new MyPromise((resolve)=>{
     setTimeout(()=>{resolve(10);},1000)
     
 }).then(res=>res*5).then(res=>console.log(res));
+
+*/
+
+/*Promise with both resolve & reject
+
+
+class MyPromise{
+    resolvedData; //public fields
+    rejectData;
+
+    isResolved=false;
+    isRejected=false;
+
+    resolvedChain=[];
+    rejectChain=[];
+
+    constructor(executor){
+
+        const resolve=(value)=>{
+            this.resolvedData=value;
+            this.isResolved=true;
+            if(this.resolvedChain.length)
+            this.resolvedChain.reduce((acc,fn)=>fn(acc),this.resolvedData);
+        }
+
+        const reject=(value)=>{
+            this.rejectData=value;
+            this.isRejected=true;
+            if(this.rejectChain.length)
+            this.rejectChain.reduce((acc,fn)=>fn(acc),this.rejectData);
+        }
+
+        executor(resolve,reject);
+    }
+    then(fn){
+        this.resolvedChain.push(fn); 
+        if(this.isResolved)
+        this.resolvedChain.reduce((acc,fn)=>fn(acc),this.resolvedData);
+        return this;
+    }
+
+    catch(fn){
+        this.rejectChain.push(fn);
+        if(this.isRejected)
+        this.rejectChain.reduce((acc,fn)=>fn(acc),this.rejectData);
+        return this;
+    }
+    
+}
+
+new MyPromise((resolve,reject)=>{
+     reject(100);
+    //setTimeout(()=>{reject(10);},1000)
+    
+}).catch(res=>res*5).catch(res=>console.log(res));
+
+*/
