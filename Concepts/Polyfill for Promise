@@ -98,6 +98,8 @@ new MyPromise((resolve)=>{
 
 */
 
+----------------------------------------------------------------------------------------
+
 /*Promise with both resolve & reject
 
 
@@ -152,3 +154,69 @@ new MyPromise((resolve,reject)=>{
 }).catch(res=>res*5).catch(res=>console.log(res));
 
 */
+
+----------------------------------------------------------------------------------------------
+
+/* Finally() added */
+
+
+class MyPromise{
+    resolvedData; //public fields
+    rejectData;
+
+    isResolved=false;
+    isRejected=false;
+
+    resolvedChain=[];
+    rejectChain=[];
+
+    constructor(executor){
+
+        const resolve=(value)=>{
+            this.resolvedData=value;
+            this.isResolved=true;
+            if(this.resolvedChain.length)
+            this.resolvedChain.reduce((acc,fn)=>fn(acc),this.resolvedData);
+        }
+
+        const reject=(value)=>{
+            this.rejectData=value;
+            this.isRejected=true;
+            if(this.rejectChain.length)
+            this.rejectChain.reduce((acc,fn)=>fn(acc),this.rejectData);
+        }
+
+        executor(resolve,reject);
+    }
+    then(fn){
+        this.resolvedChain.push(fn); 
+        if(this.isResolved)
+        this.resolvedChain.reduce((acc,fn)=>fn(acc),this.resolvedData);
+        return this;
+    }
+
+    catch(fn){
+        this.rejectChain.push(fn);
+        if(this.isRejected)
+        this.rejectChain.reduce((acc,fn)=>fn(acc),this.rejectData);
+        return this;
+    }
+
+    finally(fn){
+        this.rejectChain.push(fn);
+        this.resolvedChain.push(fn);
+
+        if(this.isResolved)
+        this.resolvedChain.reduce((acc,fn)=>fn(acc),this.resolvedData);
+
+        if(this.isRejected)
+        this.rejectChain.reduce((acc,fn)=>fn(acc),this.rejectData);
+    }
+    
+}
+
+new MyPromise((resolve,reject)=>{
+     //reject(100);
+    setTimeout(()=>{reject(10);},1000)
+    
+}).catch(res=>res*5).finally(res=>console.log(res));
