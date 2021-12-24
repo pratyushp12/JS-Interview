@@ -1,1 +1,26 @@
+/*The Object.freeze() method freezes an object. A frozen object can no longer be changed; freezing an 
+object prevents new properties from being added to it, existing properties from being removed or updated*/
 
+//shallow freeze
+
+/*const box ={x:10,y:20,inner:{p:30,q:40},}
+Object.freeze(box);
+const shape=box;
+shape.inner.p=100;
+console.log(shape.inner.p); //100 //If we run the same code in 'strict' mode, it will throw TypeError
+*/
+//deep freeze:
+
+const deep=(params)=>{
+Object.keys(params).forEach((val)=>{
+    if(typeof params[val]==='object')
+    deep(params[val]);
+    return Object.freeze(params);
+})
+}
+
+const box ={x:10,y:20,inner:{p:30,q:40},};
+deep(box);
+const shape=box;
+shape.inner.p=100;
+console.log(shape.inner.p);
