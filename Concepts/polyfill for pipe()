@@ -1,1 +1,24 @@
+/*
+A pipe function takes an n sequence of operations; in which each operation takes an argument; process it;
+and gives the processed output as an input for the next operation in the sequence. 
+The result of a pipe function is a function that is a bundled up version of the sequence of operations.
+*/
+
+
+
+
+const sumTwo = n => {
+    return n + 2;
+}
+
+const multiplyTwo = n => {
+    return n * 2;
+
+}
+
+console.log(multiplyTwo(sumTwo(1))); //6
+
+const pipe = (...fns) => x => fns.reduce((acc,val) => val(acc),x);
+
+console.log(pipe(sumTwo,multiplyTwo)(1)); //6
 
