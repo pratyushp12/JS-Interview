@@ -1,0 +1,28 @@
+
+function memoize(fn) {
+    const cache = {}
+    return function() {
+        console.log(arguments);  // [Arguments] { '0': 10 }
+      const args = JSON.stringify(arguments);
+      console.log(arguments); // [Arguments] { '0': 10 }
+      console.log(args); // {"0":10}
+      if (cache[args]) {
+        return cache[args]
+      }
+      const evaluatedValue = fn.apply(this, arguments);
+      cache[args] = evaluatedValue;
+      return evaluatedValue;
+    }
+  }
+  
+
+  function factorial(n) {
+    if(n === 0 || n === 1) {
+      return 1
+    }
+    return factorial(n-1) * n; 
+ }
+
+ const memoizedFactorial = memoize(factorial);
+ console.log(memoizedFactorial(10)); // 3628800
+ 
