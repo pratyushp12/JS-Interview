@@ -1,1 +1,49 @@
 #let-var-const ES6 concepts
+
+Scope difference : let, const are block scope and var is functional scope
+Redeclarations : let and const cannot be redeclared with same name in same scope. var can be redeclared.
+change Value or Update : const can be changed and value provided along with declaration.
+Hoisting : let and const are in TDZ until initialized. var is hoisted with undefined value
+
+Imp : Using the typeof operator to check the type of a variable in it's tdz will throw a ReferenceError. But for the undeclared variables it will throw undefined
+
+#Examples
+
+var a = 0;
+let a = 0;  //SyntaxError: Identifier 'a' has already been declared
+
+var b = 10;
+if(b == 10){
+  let b = 11;
+  console.log(b);  //11 This will work as it is declared in another scope
+}
+
+-------------------------------------------
+
+const abc = "XYZ";
+let abc; //SyntaxError: Identifier 'abc' has already been declared
+abc = "pqr"; //TypeError: Assignment to constant variable.
+
+-------------------------------------------
+
+//Should be initialised while declaring
+const XYZ; //SyntaxError: Missing initializer in a const declaration 
+
+-------------------------------------------
+
+console.log(typeof iAmNotDeclared) // undefined
+
+console.log(typeof iAmDeclared)// ReferenceError: iAmDeclared is not defined
+//Above this is it's temporal dead zone
+let iAmDeclared = 10;
+
+--------------------------------------------
+
+function test(){
+   var foo = 33;
+   if (true) {
+      let foo = (foo + 55); // ReferenceError: foo is not defined because it's in TDZ
+   }
+}
+test();
+
