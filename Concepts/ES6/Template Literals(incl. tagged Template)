@@ -1,0 +1,56 @@
+#ES6 Template Literals
+
+1. Used for Multiline strings
+eg: Before ES6. We had to use escape characters for new line like:
+var a = "Line will break after this \n\ line broke before backslah \n\ broke again";
+console.log(a); 
+// Line will break after this 
+//  line broke before backslah 
+//  broke again
+
+With ES6.
+let a = `line will break after this 
+ line broke before backslah 
+broke again`;
+
+console.log(a);
+// line will break after this 
+//  line broke before backslah 
+// broke again
+
+2. String Interpolation/Expression Interpolation:
+Before ES6.
+var b = 4;
+var a = "Two plus Two is " + b;
+console.log(a); // Twp plus Two is 4
+
+With ES6.
+let b = 4;
+let a = `Two plus Two is ${b}`;
+console.log(a); // Twp plus Two is 4
+
+let b = 4;
+let a = `Two plus Two is ${b + b}`;
+console.log(a); // Twp plus Two is 4
+
+3. Passing a function inside template strings : With ES6 we can pass function to the template literals.
+
+4. Tagged template : 
+In ES6 the real power of template literals comes from the Tagged Templates.
+With Tagged Templates we can parse the template literals with a function. 
+The first argument of a tag function contains an array of string values. The remaining arguments are related to the expressions.
+
+eg: // The cost for conducting 10 interviews is Rs 10000
+let numOfInt = 10;
+let totalCost = 10000;
+function InterviewCost(tags, ...rest){
+let str="";
+console.log(tags, rest); // ["The cost for conducting ", " interviews is Rs ", ""], [10, 10000]
+for(let i=0;i<rest.length;i++){
+str+=tags[i]+rest[i];
+}
+return str;
+}
+
+console.log(InterviewCost`The cost for conducting ${numOfInt} interviews is Rs ${totalCost}`); // "The cost for conducting 10 interviews is Rs 10000"
+
