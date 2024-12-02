@@ -2,7 +2,7 @@
 
 Scope difference : let, const are block scope and var is functional scope
 Redeclarations : let and const cannot be redeclared with same name in same scope. var can be redeclared.
-change Value or Update : const can be changed and value provided along with declaration.
+change Value or Update : const cannot be changed and value provided along with declaration.
 Hoisting : let and const are in TDZ until initialized. var is hoisted with undefined value
 
 Imp : Using the typeof operator to check the type of a variable in it's tdz will throw a ReferenceError. But for the undeclared variables it will throw undefined
