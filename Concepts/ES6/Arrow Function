@@ -1,1 +1,20 @@
+No this, arguments, super or new.target bindings of its own.
+We cannot use them as Constructors.
+They do not have prototype property.
+yield keyword cannot be used(Until in special cases).
+Unique named parameters.
+
+With implicit return we can return object literals like this. We need to wrap the object literals inside ( ) parentheses.
+
+const quantity = "100";
+const names = [ "Steel", "Gold", "Copper" ];
+const cost = names.map((name, i) =>  ({ name, quantity, price: quantity * i}));
+console.log(cost);
+//0: {name: "Steel", quantity: "100", price: 0}
+//1: {name: "Gold", quantity: "100", price: 100}
+//2: {name: "Copper", quantity: "100", price: 200}
+
+
+No constructors.
+We cannot use arrow functions with new key word as constructor, Doing so will result in an error.
 
