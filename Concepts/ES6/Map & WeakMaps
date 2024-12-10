@@ -1,1 +1,14 @@
+Just like Sets, Maps are also used to store the unique values except here it is key value pair.
 
+
+WeakMaps are to the Maps what WeakSets are to the Sets. In weakMap every key must be object, 
+inserting an non-object will result in error. Objects are held weakly so that if there is no reference to key then
+that key value will be removed from the WeakMap or garbage collected.
+
+
+Difference between Maps and WeakMaps
+WeakSets can use objects as key unlike the Maps.
+Passing non-objects as key will result in error.
+The has(key) and delete(key) method returns false for non-object.
+They have only four methods has(key), delete(key), get(key), set(key, value).
+WeakMaps are not Iteratable.
