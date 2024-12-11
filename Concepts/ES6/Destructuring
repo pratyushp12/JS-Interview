@@ -34,3 +34,5 @@ console.log(completeStreet, completeCity);
 Array Destructuring:
 
 refer : https://learnersbucket.com/tutorials/es6/destructuring/
+
+Note: Array destructuring follows order of elements while object destructuring doesn't
