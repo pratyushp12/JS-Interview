@@ -1,1 +1,61 @@
+The arguments object is a local variable available within all non-arrow functions. You can refer to a function's arguments
+inside that function by using its arguments object. It has entries for each argument the function was called with, 
+with the first entry's index at 0.
 
+The typeof operator returns 'object' when used with arguments
+
+The type of individual arguments can be determined by indexing arguments:
+
+console.log(typeof arguments[0]); // returns the type of the first argument
+
+----------------------------------------------------------------
+
+Non-strict functions that only have simple parameters (that is, no rest, default, or destructured parameters) will sync 
+the new value of parameters with the arguments object, and vice versa:
+
+function func(a) {
+  arguments[0] = 99; // updating arguments[0] also updates a
+  console.log(a);
+}
+func(10); // 99
+
+function func2(a) {
+  a = 99; // updating a also updates arguments[0]
+  console.log(arguments[0]);
+}
+func2(10); // 99
+
+------------------------------------------------------------
+
+Non-strict functions that are passed rest, default, or destructured parameters will not sync new values assigned to
+parameters in the function body with the arguments object. Instead, the arguments object in non-strict functions with 
+complex parameters will always reflect the values passed to the function when the function was called.
+
+function funcWithDefault(a = 55) {
+  arguments[0] = 99; // updating arguments[0] does not also update a
+  console.log(a);
+}
+funcWithDefault(10); // 10
+
+function funcWithDefault2(a = 55) {
+  a = 99; // updating a does not also update arguments[0]
+  console.log(arguments[0]);
+}
+funcWithDefault2(10); // 10
+
+// An untracked default parameter
+function funcWithDefault3(a = 55) {
+  console.log(arguments[0]);
+  console.log(arguments.length);
+}
+funcWithDefault3(); // undefined; 0
+
+-----------------------------------------------------------
+
+This is the same behavior exhibited by all strict-mode functions, regardless of the type of parameters they are passed. 
+That is, assigning new values to parameters in the body of the function never affects the arguments object, nor will 
+assigning new values to the arguments indices affect the value of parameters, even when the function only has simple
+parameters.
+
+Note: You cannot write a "use strict"; directive in the body of a function definition that accepts rest, default, or 
+destructured parameters. Doing so will throw a syntax error.
