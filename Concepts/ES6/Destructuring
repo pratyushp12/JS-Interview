@@ -1,0 +1,36 @@
+Object Destructuring:
+
+If we want to use a different variable name then we can do it like below.
+
+let {name: fullName, age: completeAge, role: designation} = person;
+
+console.log(fullName, completeAge, designation);
+//Pratyush Praveen 26 software engineer
+
+Nested objects destructuring:
+We can also use the destructuring for nested objects.
+
+let person = {
+     name: 'Pratyush Praveen',
+     age: 26,
+     address:{
+        street: 'random',
+        city: 'mumbai',
+        pincode: 400607
+     }
+}
+
+let {address: {street, city}} = person;
+console.log(street, city);
+// random mumbai
+
+Custom variables with nested objects destructuring.
+let {address: {street: completeStreet , city: completeCity}} = person;
+console.log(completeStreet, completeCity);
+// random mumbai
+
+-----------------------------------------------------------
+
+Array Destructuring:
+
+refer : https://learnersbucket.com/tutorials/es6/destructuring/
