@@ -1,0 +1,24 @@
+const person = {
+name : 'Pratyush',
+job : 'SE',
+subjects:['DSA', 'JS', 'Java']
+}
+
+function deepCopy(val){
+if(['string','boolean','number'].includes(typeof(val))){
+return val;
+}
+else if(Array.isArray(val)){
+return val.map(x=>deepCopy(x))
+}
+else{
+return Object.keys(val).reduce((acc, key)=>{
+  acc[key]=deepCopy(val[key]);
+  return acc;
+},{})
+}
+}
+
+let personCopy = deepCopy(person);
+person.subjects[1]='LLD';
+console.log(personCopy);
