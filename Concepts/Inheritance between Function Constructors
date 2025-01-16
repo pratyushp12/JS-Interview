@@ -1,0 +1,22 @@
+const Person = function(name, birthYear, gender){
+this.name=name;
+this.birthYear=birthYear;
+this.gender=gender;
+}
+
+Person.prototype.calcAge = function(){
+return new Date().getFullYear() - this.birthYear;
+}
+
+
+const Employee = function(name, year , gender, salary){
+Person.call(this,name,year,gender);
+this.salary=salary;
+}
+
+Employee.prototype = Object.create(Person.prototype);
+
+let john = new Employee('John',1996,'Male');
+console.log(john.calcAge());
+
+
